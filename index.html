@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AvaliaGov EP — Fluxograma Completo</title>
+<style>
+  :root {
+    --bg: #F0F4FA;
+    --branco: #ffffff;
+    --azul: #1A4A9E;
+    --azul-esc: #0D2B5E;
+    --azul-cl: #EBF3FF;
+    --verde: #2E7D32;
+    --verde-cl: #E8F5E9;
+    --laranja: #C84B00;
+    --laranja-cl: #FFF3E0;
+    --roxo: #6A1B9A;
+    --roxo-cl: #F3E5F5;
+    --ciano: #00838F;
+    --ciano-cl: #E0F7FA;
+    --vermelho: #C62828;
+    --vermelho-cl: #FFEBEE;
+    --amarelo: #F9A825;
+    --amarelo-cl: #FFF8E1;
+    --cinza: #4A5570;
+    --cinza-cl: #F0F4FA;
+    --borda: #D0DAF0;
+    --texto: #1A2340;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--azul-esc) 0%, var(--azul) 70%, #3A7BD5 100%);
+    padding: 2.5rem 2rem 2rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    pointer-events: none;
+  }
+  .header-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 3px 14px;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  header h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; }
+  header h1 span { color: #7EC8F5; }
+  header p { margin-top: 8px; font-size: 14px; opacity: 0.82; max-width: 560px; line-height: 1.6; }
+  .decreto {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 16px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ===== CAPA ===== */
+  .capa-intro { font-size: 14px; color: var(--cinza); line-height: 1.7; margin-bottom: 1.6rem; }
+  .capa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .capa-card {
+    background: #fff;
+    border: 2px solid var(--borda);
+    border-radius: 14px;
+    padding: 1.6rem 1.4rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .capa-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(13,43,94,0.12); }
+  .capa-card .capa-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .capa-card.a .capa-icon { background: var(--verde-cl); }
+  .capa-card.b .capa-icon { background: var(--roxo-cl); }
+  .capa-card h3 { font-size: 16px; font-weight: 800; color: var(--texto); }
+  .capa-card p { font-size: 13px; color: var(--cinza); line-height: 1.55; }
+  .capa-card .capa-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .capa-tag { font-size: 10.5px; font-weight: 700; border-radius: 20px; padding: 3px 10px; background: var(--cinza-cl); color: var(--cinza); }
+  .capa-card .capa-cta { margin-top: auto; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .capa-card.a .capa-cta { color: var(--verde); }
+  .capa-card.b .capa-cta { color: var(--roxo); }
+  .capa-nota { margin-top: 1.4rem; font-size: 12px; color: var(--cinza); background: var(--cinza-cl); border-radius: 8px; padding: 10px 14px; line-height: 1.6; }
+  @media (max-width: 600px) { .capa-grid { grid-template-columns: 1fr; } }
+
+  .voltar-capa {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--azul);
+    background: var(--azul-cl);
+    border: 1px solid #90CAF9;
+    border-radius: 20px;
+    padding: 5px 14px;
+    cursor: pointer;
+    margin-bottom: 1.2rem;
+  }
+  .voltar-capa:hover { background: #DCEBFF; }
+
+  /* PROGRESSO */
+  .progresso-wrap { display: flex; align-items: center; gap: 0; margin-bottom: 2rem; position: relative; }
+  .prog-step { flex: 1; display: flex; flex-direction: column; align-items: center; cursor: pointer; position: relative; z-index: 1; }
+  .prog-step::before {
+    content: ''; position: absolute; top: 18px; left: -50%; width: 100%; height: 3px;
+    background: var(--borda); z-index: -1;
+  }
+  .prog-step:first-child::before { display: none; }
+  .prog-step.ativo::before, .prog-step.concluido::before { background: var(--cor-tema, var(--azul)); }
+  .prog-bolinha {
+    width: 38px; height: 38px; border-radius: 50%; background: #fff; border: 3px solid var(--borda);
+    display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+    color: var(--cinza); transition: all 0.25s; margin-bottom: 6px;
+  }
+  .prog-step.ativo .prog-bolinha {
+    background: var(--cor-tema, var(--azul)); border-color: var(--cor-tema, var(--azul)); color: #fff;
+    box-shadow: 0 0 0 5px rgba(26,74,158,0.15);
+  }
+  .prog-step.concluido .prog-bolinha { background: var(--verde); border-color: var(--verde); color: #fff; }
+  .prog-label {
+    font-size: 10px; font-weight: 600; text-align: center; color: var(--cinza);
+    text-transform: uppercase; letter-spacing: 0.04em; max-width: 80px; line-height: 1.3;
+  }
+  .prog-step.ativo .prog-label { color: var(--cor-tema, var(--azul)); }
+  .prog-step.concluido .prog-label { color: var(--verde); }
+  #progresso-av { --cor-tema: var(--azul); }
+  #progresso-gp { --cor-tema: var(--roxo); }
+
+  .painel { display: none; animation: fadeIn 0.3s ease; }
+  .painel.ativo { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .etapa-header { border-radius: 12px 12px 0 0; padding: 1.4rem 1.6rem; display: flex; align-items: center; gap: 1rem; }
+  .etapa-num {
+    width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .etapa-header h2 { font-size: 1.2rem; font-weight: 700; color: #fff; line-height: 1.3; }
+  .etapa-header p { font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 2px; }
+
+  .etapa-body { background: #fff; border-radius: 0 0 12px 12px; border: 1px solid var(--borda); border-top: none; padding: 1.6rem; }
+
+  .atores { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .ator-tag { display: inline-flex; align-items: center; gap: 5px; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; border: 1.5px solid; }
+
+  .passos-lista { list-style: none; }
+  .passo-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--cinza-cl); }
+  .passo-item:last-child { border-bottom: none; }
+  .passo-num {
+    width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; margin-top: 1px;
+  }
+  .passo-conteudo { flex: 1; }
+  .passo-titulo { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--texto); }
+  .passo-desc { font-size: 13px; color: var(--cinza); line-height: 1.6; }
+  .passo-desc strong { color: var(--texto); }
+
+  .alerta { border-radius: 8px; padding: 10px 14px; font-size: 13px; line-height: 1.6; margin-top: 8px; display: flex; gap: 8px; align-items: flex-start; }
+  .alerta-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+  .alerta-aviso { background: var(--amarelo-cl); border-left: 4px solid var(--amarelo); }
+  .alerta-critico { background: var(--vermelho-cl); border-left: 4px solid var(--vermelho); }
+  .alerta-ok { background: var(--verde-cl); border-left: 4px solid var(--verde); }
+  .alerta-info { background: var(--azul-cl); border-left: 4px solid var(--azul); }
+
+  .prazo-badge { display: inline-flex; align-items: center; gap: 4px; border-radius: 12px; padding: 2px 10px; font-size: 11px; font-weight: 700; margin-left: 8px; vertical-align: middle; }
+  .prazo-corridos { background: #E3F2FD; color: #1565C0; }
+  .prazo-uteis { background: var(--vermelho-cl); color: var(--vermelho); }
+
+  .decisoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .decisao { border-radius: 8px; padding: 10px 12px; font-size: 12px; line-height: 1.5; border: 1px solid; }
+  .decisao strong { display: block; font-size: 13px; margin-bottom: 2px; }
+  .dec-ok { background: var(--verde-cl); border-color: #A5D6A7; color: var(--verde); }
+  .dec-nao { background: var(--vermelho-cl); border-color: #EF9A9A; color: var(--vermelho); }
+  .dec-parcial { background: var(--amarelo-cl); border-color: #FFCC02; color: var(--laranja); }
+
+  .tabela-prazos { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+  .tabela-prazos th {
+    background: var(--cinza-cl); padding: 8px 12px; text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--cinza); font-weight: 700; border-bottom: 2px solid var(--borda);
+  }
+  .tabela-prazos td { padding: 8px 12px; border-bottom: 1px solid var(--borda); color: var(--texto); }
+  .tabela-prazos tr:last-child td { border-bottom: none; }
+  .tabela-prazos tr.critico { background: var(--amarelo-cl); }
+  .tabela-prazos tr.critico td { font-weight: 700; }
+
+  .pont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .pont-card { border-radius: 8px; padding: 12px; text-align: center; border: 1px solid; }
+  .pont-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 4px; }
+  .pont-valor { font-size: 16px; font-weight: 800; display: block; }
+  .pont-desc { font-size: 11px; margin-top: 3px; opacity: 0.8; }
+
+  .acesso-box { background: var(--cinza-cl); border: 1px solid var(--borda); border-radius: 8px; padding: 12px 14px; margin-bottom: 1.2rem; font-size: 13px; }
+  .acesso-box strong { color: var(--texto); }
+  .acesso-caminho { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-top: 4px; font-size: 13px; }
+  .acesso-caminho span { color: var(--azul); font-weight: 600; }
+  #fluxo-gp .acesso-caminho span { color: var(--roxo); }
+  .acesso-caminho .seta { color: var(--cinza); }
+
+  .nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+  .btn-primario { background: var(--azul); color: #fff; }
+  .btn-primario:hover { background: var(--azul-esc); }
+  #fluxo-gp .btn-primario { background: var(--roxo); }
+  #fluxo-gp .btn-primario:hover { background: #4A1268; }
+  .btn-secundario { background: #fff; color: var(--cinza); border: 1.5px solid var(--borda); }
+  .btn-secundario:hover { background: var(--cinza-cl); }
+  .btn-desabilitado { opacity: 0.35; pointer-events: none; }
+  .etapa-counter { font-size: 13px; color: var(--cinza); font-weight: 600; }
+
+  .manuais-card {
+    background: linear-gradient(135deg, var(--azul-esc), var(--azul)); border-radius: 10px; padding: 1.2rem 1.4rem;
+    color: #fff; margin-top: 1.4rem; display: flex; align-items: center; gap: 14px;
+  }
+  #fluxo-gp .manuais-card { background: linear-gradient(135deg, #4A1268, var(--roxo)); }
+  .manuais-icon { font-size: 2rem; flex-shrink: 0; }
+  .manuais-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .manuais-card p { font-size: 12px; opacity: 0.85; line-height: 1.5; }
+  .manuais-card a {
+    display: inline-block; margin-top: 8px; background: rgba(255,255,255,0.2); color: #fff;
+    border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600; text-decoration: none;
+  }
+
+  .visao-geral { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 10px; }
+  .vg-card {
+    flex: 1; border-radius: 8px; padding: 10px 14px; border: 1.5px solid; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+  }
+  .vg-card:hover { transform: translateX(4px); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .vg-card .num { font-size: 11px; font-weight: 800; min-width: 24px; }
+  .vg-card .info { flex: 1; }
+  .vg-card .titulo { font-size: 13px; font-weight: 700; }
+  .vg-card .sub { font-size: 11px; opacity: 0.75; margin-top: 1px; }
+  .vg-card .prazo-tag { font-size: 10px; font-weight: 700; border-radius: 8px; padding: 2px 7px; white-space: nowrap; }
+  .vg-seta { display: flex; justify-content: center; font-size: 13px; color: var(--borda); margin: -4px 0 -4px 12px; }
+
+  .perfil-min { background: var(--cinza-cl); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+  .perfil-min h4 { font-size: 13px; font-weight: 800; color: var(--roxo); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .perfil-min table { width: 100%; font-size: 12.5px; border-collapse: collapse; }
+  .perfil-min td { padding: 5px 0; vertical-align: top; border-bottom: 1px dashed var(--borda); }
+  .perfil-min td:first-child { font-weight: 700; color: var(--texto); width: 34%; white-space: nowrap; padding-right: 10px; }
+  .perfil-min tr:last-child td { border-bottom: none; }
+
+  /* cores por etapa - fluxo avaliação */
+  #fluxo-av .c1 { color: var(--verde); border-color: #A5D6A7; background: var(--verde-cl); }
+  #fluxo-av .c2 { color: var(--azul); border-color: #90CAF9; background: var(--azul-cl); }
+  #fluxo-av .c3 { color: var(--ciano); border-color: #80DEEA; background: var(--ciano-cl); }
+  #fluxo-av .c4 { color: #6D4C41; border-color: #BCAAA4; background: #EFEBE9; }
+  #fluxo-av .c5 { color: var(--laranja); border-color: #FFCC80; background: var(--laranja-cl); }
+  #fluxo-av .c6 { color: var(--vermelho); border-color: #EF9A9A; background: var(--vermelho-cl); }
+
+  /* cores por etapa - fluxo GP */
+  #fluxo-gp .c1 { color: var(--roxo); border-color: #CE93D8; background: var(--roxo-cl); }
+  #fluxo-gp .c2 { color: var(--azul); border-color: #90CAF9; background: var(--azul-cl); }
+  #fluxo-gp .c3 { color: var(--laranja); border-color: #FFCC80; background: var(--laranja-cl); }
+  #fluxo-gp .c4 { color: var(--ciano); border-color: #80DEEA; background: var(--ciano-cl); }
+  #fluxo-gp .c5 { color: var(--vermelho); border-color: #EF9A9A; background: var(--vermelho-cl); }
+  #fluxo-gp .c6 { color: var(--verde); border-color: #A5D6A7; background: var(--verde-cl); }
+
+  .quando-quem {
+    margin-top: 1.4rem;
+    border-radius: 10px;
+    border: 1.5px solid var(--borda);
+    overflow: hidden;
+  }
+  .qq-linha {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    line-height: 1.55;
+  }
+  .qq-linha + .qq-linha { border-top: 1px solid var(--borda); }
+  .qq-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .qq-label { font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; font-size: 10.5px; display: block; margin-bottom: 2px; }
+  .qq-quando { background: var(--roxo-cl); }
+  .qq-quando .qq-label { color: var(--roxo); }
+  .qq-demanda { background: var(--cinza-cl); }
+  .qq-demanda .qq-label { color: var(--cinza); }
+
+  footer { text-align: center; font-size: 11px; color: var(--cinza); padding: 2rem 1rem; border-top: 1px solid var(--borda); background: #fff; }
+
+  @media (max-width: 600px) {
+    .decisoes { grid-template-columns: 1fr; }
+    .pont-grid { grid-template-columns: 1fr; }
+    .prog-label { display: none; }
+    header h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-badge">IFSP Campus Salto &mdash; CGP</div>
+    <h1>Fluxograma <span>AvaliaGov EP</span></h1>
+    <p>Escolha o que você precisa fazer agora: realizar a avaliação de um servidor, ou atuar como Gestão de Pessoas / Comissão de Avaliação de Desempenho (CAD).</p>
+    <div class="decreto">&#128196; Decreto n&ordm; 12.374/2025 &bull; IN SGP/MGI n&ordm; 122/2025 &bull; Manuais MGI &mdash; atualizado em 12/06/2026</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== CAPA DE ESCOLHA ===== -->
+  <div id="capa">
+    <p class="capa-intro">O AvaliaGov EP tem fluxos diferentes conforme o seu papel no processo. Selecione a opção que representa o que você vai fazer agora:</p>
+
+    <div class="capa-grid">
+      <div class="capa-card a" onclick="mostrar('fluxo-av')">
+        <div class="capa-icon">&#128100;</div>
+        <h3>Realizar a avaliação de um servidor</h3>
+        <p>Fluxo completo do ciclo avaliativo: preparação pela chefia, avaliação (chefia + servidor + pares), ciência, reconsideração e recurso à CAD.</p>
+        <div class="capa-tags">
+          <span class="capa-tag">Chefia Imediata</span>
+          <span class="capa-tag">Servidor</span>
+          <span class="capa-tag">Pares</span>
+        </div>
+        <div class="capa-cta">Abrir fluxograma da avaliação &#8594;</div>
+      </div>
+
+      <div class="capa-card b" onclick="mostrar('fluxo-gp')">
+        <div class="capa-icon">&#128203;</div>
+        <h3>Atuar como Gestão de Pessoas ou CAD</h3>
+        <p>Acompanhamento gerencial dos ciclos, cadastro da CAD, alteração de nota em casos excepcionais e análise de recursos pelos membros da CAD.</p>
+        <div class="capa-tags">
+          <span class="capa-tag">Gestão de Pessoas / CGP</span>
+          <span class="capa-tag">Membro CAD</span>
+        </div>
+        <div class="capa-cta">Entrar no fluxo da Gestão de Pessoas &#8594;</div>
+      </div>
+    </div>
+
+    <div class="capa-nota">&#128161; <strong>Dica:</strong> se você é chefia imediata avaliando um servidor em estágio probatório, use a primeira opção. Se você faz parte da CGP e precisa acompanhar prazos, cadastrar a CAD ou analisar um recurso, use a segunda opção.</div>
+  </div>
+
+  <!-- =========================================================== -->
+  <!-- ===================  FLUXO 1: AVALIAÇÃO  ==================== -->
+  <!-- =========================================================== -->
+  <div id="fluxo-av" style="display:none;">
+
+  <div class="voltar-capa" onclick="mostrar('capa')">&#8592; Voltar para a escolha inicial</div>
+
+  <div class="progresso-wrap" id="progresso-av">
+    <div class="prog-step ativo" onclick="irPara('av',0)"><div class="prog-bolinha">&#9776;</div><div class="prog-label">Visão Geral</div></div>
+    <div class="prog-step" onclick="irPara('av',1)"><div class="prog-bolinha">1</div><div class="prog-label">Preparação</div></div>
+    <div class="prog-step" onclick="irPara('av',2)"><div class="prog-bolinha">2</div><div class="prog-label">Avaliações</div></div>
+    <div class="prog-step" onclick="irPara('av',3)"><div class="prog-bolinha">3</div><div class="prog-label">Processamento</div></div>
+    <div class="prog-step" onclick="irPara('av',4)"><div class="prog-bolinha">4</div><div class="prog-label">Ciência</div></div>
+    <div class="prog-step" onclick="irPara('av',5)"><div class="prog-bolinha">5</div><div class="prog-label">Reconsideração</div></div>
+    <div class="prog-step" onclick="irPara('av',6)"><div class="prog-bolinha">6</div><div class="prog-label">Recurso CAD</div></div>
+  </div>
+
+  <!-- PAINEL AV-0: VISÃO GERAL -->
+  <div class="painel ativo" id="av-painel-0">
+    <div class="etapa-header" style="background: linear-gradient(135deg, var(--azul-esc), var(--azul));">
+      <div class="etapa-num">&#9776;</div>
+      <div><h2>Visão Geral do Ciclo Avaliativo</h2><p>Clique em qualquer etapa para ver os detalhes</p></div>
+    </div>
+    <div class="etapa-body">
+      <p style="font-size:13px;color:var(--cinza);margin-bottom:1rem;line-height:1.6;">O ciclo avaliativo do AvaliaGov EP possui <strong>6 etapas sequenciais</strong>. A etapa seguinte só é liberada após a conclusão da anterior. Clique em cada etapa para ver o passo a passo completo.</p>
+
+      <div class="visao-geral">
+        <div class="vg-card c1" onclick="irPara('av',1)">
+          <div class="num">01</div>
+          <div class="info"><div class="titulo">Preparação da Avaliação</div><div class="sub">Chefia &mdash; obrigatório antes de tudo</div></div>
+          <div class="prazo-tag" style="background:#C8E6C9;color:var(--verde);">Pré-requisito</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c2" onclick="irPara('av',2)">
+          <div class="num">02</div>
+          <div class="info"><div class="titulo">Realização das Avaliações</div><div class="sub">Chefia + Servidor + Pares &mdash; simultaneamente</div></div>
+          <div class="prazo-tag" style="background:#BBDEFB;color:var(--azul);">30 dias corridos</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c3" onclick="irPara('av',3)">
+          <div class="num">03</div>
+          <div class="info"><div class="titulo">Processamento do Resultado</div><div class="sub">Sistema calcula média ponderada automaticamente</div></div>
+          <div class="prazo-tag" style="background:#B2EBF2;color:var(--ciano);">Automático</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c4" onclick="irPara('av',4)">
+          <div class="num">04</div>
+          <div class="info"><div class="titulo">Ciência do Resultado</div><div class="sub">Chefia + Servidor registram ciência</div></div>
+          <div class="prazo-tag" style="background:#D7CCC8;color:#4E342E;">7 dias corridos</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c5" onclick="irPara('av',5)">
+          <div class="num">05</div>
+          <div class="info"><div class="titulo">Reconsideração</div><div class="sub">Servidor solicita &mdash; Chefia/Pares analisam</div></div>
+          <div class="prazo-tag" style="background:#FFE0B2;color:var(--laranja);">5 dias úteis ⚠</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c6" onclick="irPara('av',6)">
+          <div class="num">06</div>
+          <div class="info"><div class="titulo">Recurso à CAD</div><div class="sub">Instância final de recurso &mdash; decisão definitiva</div></div>
+          <div class="prazo-tag" style="background:#FFCDD2;color:var(--vermelho);">30 dias corridos</div>
+        </div>
+      </div>
+
+      <div class="manuais-card">
+        <div class="manuais-icon">&#128218;</div>
+        <div>
+          <h3>Manuais Oficiais MGI/SERPRO</h3>
+          <p>Em caso de dúvidas, consulte sempre os manuais oficiais. Eles contêm o passo a passo completo de acesso ao sistema para cada perfil.</p>
+          <a href="https://www.gov.br/servidor/pt-br/acesso-a-informacao/gestao-de-pessoas/desempenho-e-desenvolvimento-de-pessoas/avaliagov-estagio-probatorio-2/manuais" target="_blank">Acessar manuais &#8594;</a>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario btn-desabilitado">&#8592; Anterior</button>
+        <span class="etapa-counter">Visão Geral &mdash; 7 telas</span>
+        <button class="btn btn-primario" onclick="irPara('av',1)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AV-1: PREPARAÇÃO -->
+  <div class="painel" id="av-painel-1">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #1B5E20, var(--verde));">
+      <div class="etapa-num">1</div>
+      <div><h2>Preparação da Avaliação</h2><p>Chefia Imediata &mdash; pré-requisito obrigatório para liberar todas as avaliações</p></div>
+    </div>
+    <div class="etapa-body">
+      <div class="atores"><span class="ator-tag" style="color:var(--verde);border-color:#A5D6A7;background:var(--verde-cl);">&#128100; Chefia Imediata</span></div>
+
+      <div class="acesso-box">
+        <strong>Como acessar:</strong>
+        <div class="acesso-caminho">
+          <span>SouGov</span><span class="seta">›</span><span>Área do Líder</span><span class="seta">›</span><span>AvaliaGov</span><span class="seta">›</span><span>AvaliaGov Estágio Probatório</span>
+        </div>
+      </div>
+
+      <div class="alerta alerta-aviso" style="margin-bottom:1rem;">
+        <span class="alerta-icon">⚠</span>
+        <div><strong>Atenção:</strong> Enquanto esta etapa não for concluída, o sistema <strong>não libera as avaliações</strong> para o servidor e os pares. Realize o quanto antes.</div>
+      </div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--verde);">1</div>
+          <div class="passo-conteudo">
+            <div class="passo-titulo">Definir os pares avaliadores</div>
+            <div class="passo-desc">Clique em <strong>"Especificar pares"</strong>. Em conjunto com o(a) servidor(a), defina entre <strong>3 e 5 pares</strong> que sejam: servidores estáveis + 6 ou mais meses na mesma equipe.</div>
+            <div class="alerta alerta-ok" style="margin-top:8px;"><span class="alerta-icon">&#128274;</span><div><strong>Anonimato:</strong> As avaliações de pares são anônimas. O servidor verá "Par 1", "Par 2" etc., sem identificação.</div></div>
+            <div class="alerta alerta-aviso" style="margin-top:8px;"><span class="alerta-icon">&#9888;</span><div><strong>Dispensa:</strong> Se não houver pelo menos 3 servidores elegíveis, registre a dispensa no sistema.</div></div>
+            <div class="alerta alerta-info" style="margin-top:8px;"><span class="alerta-icon">&#128231;</span><div><strong>Ação necessária:</strong> Após indicar os pares, encaminhe este material a cada par indicado. A CGP não vê os pares no sistema.</div></div>
+          </div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--verde);">2</div>
+          <div class="passo-conteudo">
+            <div class="passo-titulo">Informar carga horária do PDI</div>
+            <div class="passo-desc">Solicite ao(à) servidor(a) quantas horas cumpriu no <strong>Programa de Desenvolvimento Inicial (PDI)</strong> e registre no sistema.</div>
+            <div class="alerta alerta-info" style="margin-top:8px;"><span class="alerta-icon">&#128279;</span><div>Consultar em: <strong>integra.enap.gov.br/consulta</strong><br>Caminho: Acompanhamento PDI › Consulta por CPF (conforme o cargo)</div></div>
+          </div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--verde);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Informar se há atendimento ao público</div><div class="passo-desc">Indique se o(a) servidor(a) <strong>atua diretamente com atendimento ao público</strong> ou não. Isso define quais descritores aparecerão na avaliação.</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--verde);">4</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Informar o regime de frequência</div><div class="passo-desc">Indique se o(a) servidor(a) participa do <strong>regime de controle de frequência convencional</strong> ou do <strong>Programa de Gestão de Desempenho (PGD)</strong>.</div></div>
+        </li>
+      </ul>
+
+      <div class="alerta alerta-ok" style="margin-top:1rem;"><span class="alerta-icon">&#10003;</span><div><strong>Ao concluir os 4 passos</strong>, o sistema libera automaticamente as avaliações para chefia, servidor e pares.</div></div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('av',0)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 1 de 6</span>
+        <button class="btn btn-primario" onclick="irPara('av',2)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AV-2: AVALIAÇÕES -->
+  <div class="painel" id="av-painel-2">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #0D47A1, var(--azul));">
+      <div class="etapa-num">2</div>
+      <div><h2>Realização das Avaliações</h2><p>Todos avaliam simultaneamente &mdash; 30 dias corridos</p></div>
+    </div>
+    <div class="etapa-body">
+      <div class="atores">
+        <span class="ator-tag" style="color:var(--verde);border-color:#A5D6A7;background:var(--verde-cl);">&#128100; Chefia</span>
+        <span class="ator-tag" style="color:var(--azul);border-color:#90CAF9;background:var(--azul-cl);">&#128101; Servidor</span>
+        <span class="ator-tag" style="color:var(--laranja);border-color:#FFCC80;background:var(--laranja-cl);">&#129309; Pares</span>
+      </div>
+
+      <div class="alerta alerta-info" style="margin-bottom:1rem;"><span class="alerta-icon">&#8505;</span><div>As três avaliações ocorrem <strong>ao mesmo tempo</strong>, dentro do mesmo prazo de 30 dias corridos. Cada ator acessa o sistema de forma independente.</div></div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--verde);">C</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Chefia realiza a avaliação <span class="prazo-badge prazo-corridos">30 dias</span></div>
+            <div class="passo-desc"><strong>SouGov › Área do Líder › AvaliaGov EP</strong><br>Clique em "Realizar avaliação". Avalie cada <strong>Descritor</strong> dentro de cada <strong>Fator</strong>. Preencha obrigatoriamente a <strong>Justificativa</strong> de cada fator (30 a 3.000 caracteres). Pode salvar como rascunho e retomar.</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--azul);">S</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Servidor realiza a autoavaliação <span class="prazo-badge prazo-corridos">30 dias</span></div>
+            <div class="passo-desc"><strong>SouGov › Autoatendimento › AvaliaGov EP (como Servidor)</strong><br>Avalie sua própria atuação em cada Descritor e Fator. Justificativa obrigatória por fator (30 a 3.000 caracteres). Pode salvar como rascunho.</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">P</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Pares realizam a avaliação <span class="prazo-badge prazo-corridos">30 dias</span></div>
+            <div class="passo-desc"><strong>SouGov › Autoatendimento › AvaliaGov EP (como Servidor)</strong><br>Cada par avalia o colega de forma independente e anônima. Justificativa obrigatória por fator. Avaliação anônima — servidor não vê a identificação.</div></div>
+        </li>
+      </ul>
+
+      <div class="alerta alerta-aviso" style="margin-top:1rem;"><span class="alerta-icon">⚠</span><div><strong>Atenção ao prazo:</strong> Após encerramento dos 30 dias, não é mais possível realizar a avaliação no sistema AvaliaGov EP.</div></div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('av',1)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 2 de 6</span>
+        <button class="btn btn-primario" onclick="irPara('av',3)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AV-3: PROCESSAMENTO -->
+  <div class="painel" id="av-painel-3">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #006064, var(--ciano));">
+      <div class="etapa-num">3</div>
+      <div><h2>Processamento do Resultado</h2><p>Sistema calcula automaticamente a pontuação final</p></div>
+    </div>
+    <div class="etapa-body">
+      <div class="atores"><span class="ator-tag" style="color:var(--ciano);border-color:#80DEEA;background:var(--ciano-cl);">&#9881; Sistema AvaliaGov</span></div>
+
+      <p style="font-size:13px;color:var(--cinza);margin-bottom:1rem;line-height:1.6;">Após o encerramento do período de avaliações, o sistema calcula automaticamente a <strong>média ponderada</strong> das três avaliações e gera o resultado final com o conceito do servidor.</p>
+
+      <div class="pont-grid">
+        <div class="pont-card" style="background:var(--verde-cl);border-color:#A5D6A7;"><span class="pont-label" style="color:var(--verde);">Suficiente</span><span class="pont-valor" style="color:var(--verde);">&ge; 80</span><div class="pont-desc" style="color:var(--verde);">pontos</div></div>
+        <div class="pont-card" style="background:var(--laranja-cl);border-color:#FFCC80;"><span class="pont-label" style="color:var(--laranja);">Inadequado</span><span class="pont-valor" style="color:var(--laranja);">51 – 79</span><div class="pont-desc" style="color:var(--laranja);">pontos — PDI obrigatório</div></div>
+        <div class="pont-card" style="background:var(--vermelho-cl);border-color:#EF9A9A;"><span class="pont-label" style="color:var(--vermelho);">Insuficiente</span><span class="pont-valor" style="color:var(--vermelho);">&le; 50</span><div class="pont-desc" style="color:var(--vermelho);">pontos — PDI obrigatório</div></div>
+      </div>
+
+      <div class="alerta alerta-info" style="margin-top:1rem;"><span class="alerta-icon">&#8505;</span><div>O resultado é composto por: <strong>pontuação da chefia + autoavaliação + pontuação dos pares</strong>, calculadas em média ponderada conforme a proporção definida pela legislação.</div></div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('av',2)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 3 de 6</span>
+        <button class="btn btn-primario" onclick="irPara('av',4)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AV-4: CIÊNCIA -->
+  <div class="painel" id="av-painel-4">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #3E2723, #6D4C41);">
+      <div class="etapa-num">4</div>
+      <div><h2>Ciência do Resultado</h2><p>Chefia e Servidor registram que tomaram conhecimento — 7 dias corridos</p></div>
+    </div>
+    <div class="etapa-body">
+      <div class="atores">
+        <span class="ator-tag" style="color:var(--verde);border-color:#A5D6A7;background:var(--verde-cl);">&#128100; Chefia</span>
+        <span class="ator-tag" style="color:var(--azul);border-color:#90CAF9;background:var(--azul-cl);">&#128101; Servidor</span>
+      </div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:#6D4C41;">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Chefia registra a ciência <span class="prazo-badge prazo-corridos">7 dias</span></div><div class="passo-desc">A chefia acessa o AvaliaGov EP e registra que tomou ciência do resultado da avaliação do(a) servidor(a).</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:#6D4C41;">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Servidor registra a ciência <span class="prazo-badge prazo-corridos">7 dias</span></div>
+            <div class="passo-desc">O(a) servidor(a) acessa o SouGov e registra a ciência do resultado. Deve verificar as pontuações de chefia, autoavaliação, pares, média ponderada e conceito final.</div>
+            <div class="alerta alerta-critico" style="margin-top:8px;"><span class="alerta-icon">&#128308;</span><div><strong>Bloqueio de acesso:</strong> Se o servidor <strong>não registrar a ciência</strong> dentro de 7 dias corridos, o sistema <strong>bloqueará o acesso ao SouGov</strong>.</div></div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('av',3)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 4 de 6</span>
+        <button class="btn btn-primario" onclick="irPara('av',5)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AV-5: RECONSIDERAÇÃO -->
+  <div class="painel" id="av-painel-5">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #BF360C, var(--laranja));">
+      <div class="etapa-num">5</div>
+      <div><h2>Reconsideração</h2><p>Opcional &mdash; se o servidor discordar do resultado</p></div>
+    </div>
+    <div class="etapa-body">
+      <div class="atores">
+        <span class="ator-tag" style="color:var(--azul);border-color:#90CAF9;background:var(--azul-cl);">&#128101; Servidor solicita</span>
+        <span class="ator-tag" style="color:var(--verde);border-color:#A5D6A7;background:var(--verde-cl);">&#128100; Chefia analisa</span>
+        <span class="ator-tag" style="color:var(--laranja);border-color:#FFCC80;background:var(--laranja-cl);">&#129309; Par analisa</span>
+      </div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Servidor solicita reconsideração <span class="prazo-badge prazo-uteis">⚠ 5 dias ÚTEIS</span></div>
+            <div class="passo-desc">Se discordar de alguma nota, o servidor acessa o resultado e solicita reconsideração dos descritores contestados. Deve informar a pontuação proposta, a justificativa e pode anexar documentos.</div>
+            <div class="alerta alerta-critico" style="margin-top:8px;"><span class="alerta-icon">&#128308;</span><div><strong>Prazo mais crítico do processo:</strong> apenas <strong>5 dias úteis</strong> a partir da ciência do resultado. Não há prorrogação.</div></div>
+          </div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Chefia/Par analisa a reconsideração <span class="prazo-badge prazo-corridos">30 dias</span></div>
+            <div class="passo-desc">Quem recebe a notificação por e-mail analisa cada item contestado e toma uma decisão:</div>
+            <div class="decisoes">
+              <div class="decisao dec-ok"><strong>&#10003; Deferido</strong>Aceita a nota proposta pelo servidor</div>
+              <div class="decisao dec-nao"><strong>&#10007; Indeferido</strong>Mantém a nota original da avaliação</div>
+              <div class="decisao dec-parcial"><strong>&#9670; Parcialmente</strong>Concede nota intermediária informada</div>
+            </div>
+            <div class="alerta alerta-critico" style="margin-top:8px;"><span class="alerta-icon">&#9888;</span><div>Após clicar em <strong>Finalizar e Confirmar</strong>, não é possível editar. Se o prazo de 30 dias vencer sem confirmação, o recurso é encerrado automaticamente.</div></div>
+          </div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Servidor registra ciência da reconsideração <span class="prazo-badge prazo-corridos">7 dias</span></div><div class="passo-desc">Após a decisão da chefia/par, o servidor registra ciência da análise. Se ainda discordar, pode interpor Recurso à CAD.</div></div>
+        </li>
+      </ul>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('av',4)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 5 de 6</span>
+        <button class="btn btn-primario" onclick="irPara('av',6)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AV-6: RECURSO CAD -->
+  <div class="painel" id="av-painel-6">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #7F0000, var(--vermelho));">
+      <div class="etapa-num">6</div>
+      <div><h2>Recurso à CAD</h2><p>Instância final de recurso &mdash; decisão definitiva</p></div>
+    </div>
+    <div class="etapa-body">
+      <div class="atores">
+        <span class="ator-tag" style="color:var(--azul);border-color:#90CAF9;background:var(--azul-cl);">&#128101; Servidor interpõe</span>
+        <span class="ator-tag" style="color:var(--roxo);border-color:#CE93D8;background:var(--roxo-cl);">&#9878; CAD analisa</span>
+      </div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Servidor interpõe recurso à CAD <span class="prazo-badge prazo-corridos">30 dias</span></div><div class="passo-desc">Se ainda discordar após a análise da reconsideração, o servidor pode interpor recurso à CAD em até 30 dias corridos após a ciência da reconsideração.</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">CAD analisa o recurso <span class="prazo-badge prazo-corridos">30 dias</span></div>
+            <div class="passo-desc">A Comissão de Avaliação de Desempenho (CAD) acessa o SIGEPE com <strong>certificado digital</strong> e analisa os itens em recurso. Decide por Deferido, Indeferido ou Deferido parcialmente para cada item.</div>
+            <div class="alerta alerta-critico" style="margin-top:8px;"><span class="alerta-icon">&#128308;</span><div><strong>Prazo fatal:</strong> Se a CAD não concluir a análise em 30 dias corridos, o recurso é <strong>encerrado automaticamente sem análise</strong> e não pode mais ser reaberto.</div></div>
+            <div class="decisoes" style="margin-top:8px;">
+              <div class="decisao dec-ok"><strong>&#10003; Deferido</strong>Aceita a nota proposta pelo servidor</div>
+              <div class="decisao dec-nao"><strong>&#10007; Indeferido</strong>Mantém a nota anterior</div>
+              <div class="decisao dec-parcial"><strong>&#9670; Parcialmente</strong>Concede nota intermediária</div>
+            </div>
+          </div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Servidor registra ciência da decisão da CAD <span class="prazo-badge prazo-corridos">7 dias</span></div><div class="passo-desc">Após a decisão da CAD, o servidor registra a ciência final. Esta é a decisão definitiva do ciclo avaliativo.</div></div>
+        </li>
+      </ul>
+
+      <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--cinza);margin:1.2rem 0 0.5rem;">Resumo completo de prazos</p>
+      <table class="tabela-prazos">
+        <thead><tr><th>Etapa</th><th>Prazo</th><th>Tipo</th></tr></thead>
+        <tbody>
+          <tr><td>Avaliações (chefia + servidor + pares)</td><td>30 dias</td><td>corridos</td></tr>
+          <tr><td>Ciência pelo servidor</td><td>7 dias</td><td>corridos</td></tr>
+          <tr class="critico"><td>⚠ Reconsideração pelo servidor</td><td>5 dias</td><td>ÚTEIS ⚠</td></tr>
+          <tr><td>Análise da reconsideração (chefia/par)</td><td>30 dias</td><td>corridos</td></tr>
+          <tr><td>Ciência da reconsideração</td><td>7 dias</td><td>corridos</td></tr>
+          <tr><td>Recurso à CAD</td><td>30 dias</td><td>corridos</td></tr>
+          <tr><td>Análise pela CAD</td><td>30 dias</td><td>corridos ⚠</td></tr>
+        </tbody>
+      </table>
+
+      <div class="alerta alerta-ok" style="margin-top:1rem;"><span class="alerta-icon">&#10003;</span><div><strong>Ciclo concluído!</strong> Após a ciência da decisão da CAD, o ciclo avaliativo está encerrado. Se o conceito for Inadequado ou Insuficiente, o PDI (Plano de Ação) deverá ser elaborado em até 30 dias.</div></div>
+
+      <div class="manuais-card">
+        <div class="manuais-icon">&#128218;</div>
+        <div>
+          <h3>Dúvidas? Consulte os Manuais Oficiais</h3>
+          <p>O MGI disponibilizou manuais por perfil: Chefia, Servidor, Par Avaliador, Gestor de Pessoas e Membro CAD. Sempre acesse pelo link para garantir a versão mais atualizada.</p>
+          <a href="https://www.gov.br/servidor/pt-br/acesso-a-informacao/gestao-de-pessoas/desempenho-e-desenvolvimento-de-pessoas/avaliagov-estagio-probatorio-2/manuais" target="_blank">Acessar manuais oficiais &#8594;</a>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('av',5)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 6 de 6</span>
+        <button class="btn btn-primario" onclick="irPara('av',0)">&#8617; Visão Geral</button>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- fim #fluxo-av -->
+
+  <!-- =========================================================== -->
+  <!-- ============  FLUXO 2: GESTÃO DE PESSOAS / CAD  ============= -->
+  <!-- =========================================================== -->
+  <div id="fluxo-gp" style="display:none;">
+
+  <div class="voltar-capa" onclick="mostrar('capa')">&#8592; Voltar para a escolha inicial</div>
+
+  <div class="progresso-wrap" id="progresso-gp">
+    <div class="prog-step ativo" onclick="irPara('gp',0)"><div class="prog-bolinha">&#9776;</div><div class="prog-label">Visão Geral</div></div>
+    <div class="prog-step" onclick="irPara('gp',1)"><div class="prog-bolinha">1</div><div class="prog-label">Acesso</div></div>
+    <div class="prog-step" onclick="irPara('gp',2)"><div class="prog-bolinha">2</div><div class="prog-label">Consulta Gerencial</div></div>
+    <div class="prog-step" onclick="irPara('gp',3)"><div class="prog-bolinha">3</div><div class="prog-label">Alterar Nota</div></div>
+    <div class="prog-step" onclick="irPara('gp',4)"><div class="prog-bolinha">4</div><div class="prog-label">Cadastro CAD</div></div>
+    <div class="prog-step" onclick="irPara('gp',5)"><div class="prog-bolinha">5</div><div class="prog-label">Análise de Recursos</div></div>
+  </div>
+
+  <!-- PAINEL GP-0: VISÃO GERAL -->
+  <div class="painel ativo" id="gp-painel-0">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #4A1268, var(--roxo));">
+      <div class="etapa-num">&#9776;</div>
+      <div><h2>O que a Gestão de Pessoas deve tramitar</h2><p>Clique em cada etapa para ver a ação a executar</p></div>
+    </div>
+    <div class="etapa-body">
+
+      <div class="visao-geral">
+        <div class="vg-card c1" onclick="irPara('gp',1)">
+          <div class="num">01</div>
+          <div class="info"><div class="titulo">Solicitar acesso ao sistema</div><div class="sub">Perfil AVALIAGOV_GESTOR_EP no Autoriza + certificado digital</div></div>
+          <div class="prazo-tag" style="background:#E1BEE7;color:var(--roxo);">Fazer 1&ordf;</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c2" onclick="irPara('gp',2)">
+          <div class="num">02</div>
+          <div class="info"><div class="titulo">Consultar e acompanhar ciclos</div><div class="sub">Consulta Gerencial &mdash; verificar pendências e exportar</div></div>
+          <div class="prazo-tag" style="background:#BBDEFB;color:var(--azul);">Rotina</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c3" onclick="irPara('gp',3)">
+          <div class="num">03</div>
+          <div class="info"><div class="titulo">Lançar nota manual (se houver caso excepcional)</div><div class="sub">Após processo administrativo concluído</div></div>
+          <div class="prazo-tag" style="background:#FFE0B2;color:var(--laranja);">Quando houver</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c4" onclick="irPara('gp',4)">
+          <div class="num">04</div>
+          <div class="info"><div class="titulo">Cadastrar/atualizar a CAD</div><div class="sub">Ato de instituição + membros</div></div>
+          <div class="prazo-tag" style="background:#B2EBF2;color:var(--ciano);">Quando houver ato novo</div>
+        </div>
+        <div class="vg-seta">&#9660;</div>
+
+        <div class="vg-card c5" onclick="irPara('gp',5)">
+          <div class="num">05</div>
+          <div class="info"><div class="titulo">Analisar recurso (se membro da CAD)</div><div class="sub">Prazo de 30 dias corridos</div></div>
+          <div class="prazo-tag" style="background:#FFCDD2;color:var(--vermelho);">30 dias</div>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario btn-desabilitado">&#8592; Anterior</button>
+        <span class="etapa-counter">Visão Geral</span>
+        <button class="btn btn-primario" onclick="irPara('gp',1)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL GP-1: ACESSO -->
+  <div class="painel" id="gp-painel-1">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #4A1268, var(--roxo));">
+      <div class="etapa-num">1</div>
+      <div><h2>Solicitar Acesso ao Sistema</h2><p>Faça isso antes de qualquer outra ação</p></div>
+    </div>
+    <div class="etapa-body">
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--roxo);">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Solicite habilitação no Autoriza ao Cadastrador parcial do órgão</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--roxo);">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Peça o perfil <strong>AVALIAGOV_GESTOR_EP</strong></div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--roxo);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Acesse <strong>sigepe.gov.br</strong> com certificado digital</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--roxo);">4</div>
+          <div class="passo-conteudo"><div class="passo-titulo">No AvaliaGov, troque a atribuição para <strong>nível órgão</strong></div>
+            <div class="passo-desc">Ícone no canto superior direito &rarr; "Selecione a Atribuição" &rarr; opção do órgão.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="acesso-box">
+        <div class="acesso-caminho"><span>Sigepe</span><span class="seta">&#8594;</span><span>Gestão de Pessoas</span><span class="seta">&#8594;</span><span>AvaliaGov</span></div>
+      </div>
+
+      <div class="quando-quem">
+        <div class="qq-linha qq-quando"><span class="qq-icon">&#128197;</span><div><span class="qq-label">Quando fazer</span>Uma única vez, antes de iniciar qualquer atuação no AvaliaGov EP (ao assumir a função ou quando o acesso expirar/for revogado).</div></div>
+        <div class="qq-linha qq-demanda"><span class="qq-icon">&#128100;</span><div><span class="qq-label">Quem demanda</span>Iniciativa própria da Gestão de Pessoas &mdash; não depende de solicitação de terceiros.</div></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('gp',0)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 1 de 5</span>
+        <button class="btn btn-primario" onclick="irPara('gp',2)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL GP-2: CONSULTA GERENCIAL -->
+  <div class="painel" id="gp-painel-2">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #0D47A1, var(--azul));">
+      <div class="etapa-num">2</div>
+      <div><h2>Consultar e Acompanhar Ciclos</h2><p>Rotina de acompanhamento</p></div>
+    </div>
+    <div class="etapa-body">
+
+      <div class="acesso-box">
+        <div class="acesso-caminho"><span>Sigepe</span><span class="seta">&#8594;</span><span>AvaliaGov</span><span class="seta">&#8594;</span><span>Estágio Probatório</span><span class="seta">&#8594;</span><span>Consulta Gerencial</span></div>
+      </div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--azul);">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Pesquise por servidor (nome/matrícula/CPF), por intervalo de datas, ou deixe em branco e clique Pesquisar para ver todo o órgão</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--azul);">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Clique em "Detalhar" em cada card para ver a lista de servidores</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--azul);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Se um servidor nomeado a partir de 07/02/2025 não aparecer na lista, solicite inclusão via <strong>Central Sipec</strong></div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--azul);">4</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Se um servidor não deveria constar, solicite exclusão via <strong>Central Sipec</strong></div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--azul);">5</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Mantenha a unidade de exercício do servidor atualizada no Siape (inclusive em movimentações internas)</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--azul);">6</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Para relatório, clique no ícone de exportação e gere a planilha Excel</div></div>
+        </li>
+      </ul>
+
+      <div class="quando-quem">
+        <div class="qq-linha qq-quando"><span class="qq-icon">&#128197;</span><div><span class="qq-label">Quando fazer</span>Periodicamente, como rotina de acompanhamento (recomendável semanal/quinzenal), e sempre que precisar responder a uma dúvida sobre prazo ou pendência de um servidor específico.</div></div>
+        <div class="qq-linha qq-demanda"><span class="qq-icon">&#128100;</span><div><span class="qq-label">Quem demanda</span>Iniciativa própria da Gestão de Pessoas (monitoramento proativo) ou resposta a uma pergunta de chefia, servidor ou membro da CAD sobre o andamento do ciclo.</div></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('gp',1)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 2 de 5</span>
+        <button class="btn btn-primario" onclick="irPara('gp',3)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL GP-3: ALTERAÇÃO DE NOTA -->
+  <div class="painel" id="gp-painel-3">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #8C4A00, var(--laranja));">
+      <div class="etapa-num">3</div>
+      <div><h2>Lançar Nota Manual</h2><p>Só depois de processo administrativo concluído</p></div>
+    </div>
+    <div class="etapa-body">
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Na lista de servidores com ciclo finalizado (Consulta Gerencial), localize o servidor e clique em <strong>"Ação"</strong></div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Preencha: nova nota final, justificativa com número do processo administrativo, e anexe o PDF (até 5 MB)</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Clique em <strong>Confirmar alteração</strong></div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--laranja);">4</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Se a avaliação foi feita fora do sistema, envie também o registro ao <strong>AFD</strong> (Assentamento Funcional Digital)</div></div>
+        </li>
+      </ul>
+
+      <div class="quando-quem">
+        <div class="qq-linha qq-quando"><span class="qq-icon">&#128197;</span><div><span class="qq-label">Quando fazer</span>Somente após o processo administrativo que justifica a exceção estar concluído (afastamento com prorrogação, chefia que não avaliou, CAD que não concluiu a análise, ou IFE sem adesão ao sistema). Não há prazo limite para o lançamento.</div></div>
+        <div class="qq-linha qq-demanda"><span class="qq-icon">&#128100;</span><div><span class="qq-label">Quem demanda</span>Depende de quem identificou a pendência: pode ser a própria Gestão de Pessoas ao acompanhar a Consulta Gerencial, a chefia imediata que relata a impossibilidade de avaliar, ou o setor/PROB responsável pelo processo administrativo do servidor.</div></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('gp',2)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 3 de 5</span>
+        <button class="btn btn-primario" onclick="irPara('gp',4)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL GP-4: CADASTRO CAD -->
+  <div class="painel" id="gp-painel-4">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #00575F, var(--ciano));">
+      <div class="etapa-num">4</div>
+      <div><h2>Cadastrar/Atualizar a CAD</h2><p>Ato de instituição e membros</p></div>
+    </div>
+    <div class="etapa-body">
+
+      <div class="acesso-box">
+        <div class="acesso-caminho"><span>Menu inicial do AvaliaGov</span><span class="seta">&#8594;</span><span>Cadastro CAD</span><span class="seta">&#8594;</span><span>Cadastrar</span></div>
+      </div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--ciano);">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Confirme que os futuros membros já têm o perfil <strong>AVALIAGOV_MEMBROCAD_EP</strong> no Autoriza</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--ciano);">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Preencha: Órgão, Número do Ato, Data de publicação, Período de vigência, Finalidade, Situação (anexo opcional)</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--ciano);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Clique em "Adicionar membro", busque por nome/CPF/matrícula e selecione cada membro</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--ciano);">4</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Clique em <strong>Salvar</strong></div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--ciano);">5</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Para incluir/excluir membro depois: filtre a CAD em Cadastro CAD, clique em Editar, use "Adicionar membro" ou a lixeira, e Salvar</div></div>
+        </li>
+      </ul>
+
+      <div class="quando-quem">
+        <div class="qq-linha qq-quando"><span class="qq-icon">&#128197;</span><div><span class="qq-label">Quando fazer</span>Sempre que houver um novo ato de instituição da CAD (portaria) publicado, ou quando algum membro precisar ser incluído/substituído/excluído da comissão já cadastrada.</div></div>
+        <div class="qq-linha qq-demanda"><span class="qq-icon">&#128100;</span><div><span class="qq-label">Quem demanda</span>Demanda institucional: normalmente a Gestão de Pessoas é acionada pela direção/reitoria após a publicação da portaria de instituição ou alteração da CAD.</div></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('gp',3)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 4 de 5</span>
+        <button class="btn btn-primario" onclick="irPara('gp',5)">Próximo &#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL GP-5: ANÁLISE DE RECURSOS -->
+  <div class="painel" id="gp-painel-5">
+    <div class="etapa-header" style="background: linear-gradient(135deg, #8C1414, var(--vermelho));">
+      <div class="etapa-num">5</div>
+      <div><h2>Analisar Recurso (Membro da CAD)</h2><p>Prazo de 30 dias corridos</p></div>
+    </div>
+    <div class="etapa-body">
+
+      <div class="acesso-box">
+        <div class="acesso-caminho"><span>Menu do AvaliaGov</span><span class="seta">&#8594;</span><span>Análise de Recursos</span></div>
+      </div>
+
+      <ul class="passos-lista">
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">1</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Filtre por matrícula, nome, situação ou data limite e localize o recurso</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">2</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Abra o histórico completo de cada fator contestado antes de decidir</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">3</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Para cada fator, escolha Deferir, Deferir Parcialmente (informe a nova pontuação) ou Indeferir, e escreva a justificativa</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">4</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Se precisar parar no meio, clique em <strong>Salvar</strong> (não em "Concluir análise") para retomar depois</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">5</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Anexe documentos se necessário (até 5 arquivos PDF, 5 MB cada) e clique em Upload</div></div>
+        </li>
+        <li class="passo-item">
+          <div class="passo-num" style="background:var(--vermelho);">6</div>
+          <div class="passo-conteudo"><div class="passo-titulo">Depois de analisar todos os fatores, clique em <strong>Concluir análise</strong> (ação irreversível)</div></div>
+        </li>
+      </ul>
+
+      <div class="alerta alerta-critico"><span class="alerta-icon">&#9888;</span><div>Prazo de <strong>30 dias corridos</strong>. Se vencer, o recurso é encerrado automaticamente sem análise.</div></div>
+
+      <div class="quando-quem">
+        <div class="qq-linha qq-quando"><span class="qq-icon">&#128197;</span><div><span class="qq-label">Quando fazer</span>Assim que o recurso aparecer na lista com status "Aguardando análise" &mdash; o prazo de 30 dias corridos começa a contar a partir da interposição do recurso pelo servidor, então não deixe para a última semana.</div></div>
+        <div class="qq-linha qq-demanda"><span class="qq-icon">&#128100;</span><div><span class="qq-label">Quem demanda</span>Demanda do servidor avaliado, que interpõe o recurso após discordar da análise de reconsideração. O sistema notifica automaticamente os membros da CAD; não é preciso que a Gestão de Pessoas avise.</div></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secundario" onclick="irPara('gp',4)">&#8592; Anterior</button>
+        <span class="etapa-counter">Etapa 5 de 5</span>
+        <button class="btn btn-primario" onclick="irPara('gp',0)">&#8617; Visão Geral</button>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- fim #fluxo-gp -->
+
+</main>
+
+<footer>
+  <p>AvaliaGov EP &bull; IFSP Campus Salto &bull; CGP — Coordenação de Gestão de Pessoas &bull; Decreto n&ordm; 12.374/2025</p>
+</footer>
+
+<script>
+var estadoAtual = { av: 0, gp: 0 };
+
+function irPara(fluxo, n) {
+  var atual = estadoAtual[fluxo];
+  document.getElementById(fluxo + '-painel-' + atual).classList.remove('ativo');
+
+  var steps = document.querySelectorAll('#progresso-' + fluxo + ' .prog-step');
+  steps[atual].classList.remove('ativo');
+  steps.forEach(function(el, i) {
+    el.classList.remove('concluido', 'ativo');
+    if (i < n) el.classList.add('concluido');
+  });
+
+  estadoAtual[fluxo] = n;
+  document.getElementById(fluxo + '-painel-' + n).classList.add('ativo');
+  steps[n].classList.add('ativo');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function mostrar(id) {
+  document.getElementById('capa').style.display = (id === 'capa') ? 'block' : 'none';
+  document.getElementById('fluxo-av').style.display = (id === 'fluxo-av') ? 'block' : 'none';
+  document.getElementById('fluxo-gp').style.display = (id === 'fluxo-gp') ? 'block' : 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
